@@ -36,6 +36,12 @@
                                         <input class="form-control py-4" name="address" type="text" value="{{ $customer->address }}" />
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputState">Phone No.</label>
+                                        <input class="form-control py-4" name="phone" type="text" />
+                                    </div>
+                                </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputLastName">Product Category</label>

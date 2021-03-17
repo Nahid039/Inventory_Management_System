@@ -3,7 +3,7 @@
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table mr-1"></i>
-        Orders List
+        Pending Orders List
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -36,7 +36,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ 'add-invoice/'.$row->id }}" class="btn btn-sm btn-info">Invoice</a>
+                            <a href="{{ 'add-invoice/'.$row->id }}" class="btn btn-sm btn-info">createInvoice</a>
                         </td>
                     </tr>
                     @endforeach

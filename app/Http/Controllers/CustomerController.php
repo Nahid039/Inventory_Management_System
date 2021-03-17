@@ -15,7 +15,6 @@ class CustomerController extends Controller
         $data->company = $request->company;
     	$data->address = $request->address;
     	$data->phone = $request->phone;
-
         $data->save();
         return Redirect()->route('add.customer');
     }

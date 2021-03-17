@@ -27,8 +27,29 @@ class InvoiceController extends Controller
         $data->total = $request->total;
         $data->payment = $request->payment;
         $data->due = $request->total - $request->payment;
-
         $data->save();
+
+        //order_track
+        $productCode = Product::where('name',$request->name)->first();
+        $data2=new Order;
+        $data2->email= $request->email;
+        $data2->product_code = $productCode->product_code;
+        $data2->product_name = $request->name;
+        $data2->quantity = $request->quantity;
+        $data2->order_status = 1;
+        $data2->save();
+
+        //customer_track
+        $customer = Customer::where('email', '=', $request->email)->first();
+        if($customer === null){
+            $data3=new Customer;
+            $data3->name= $request->customer;
+            $data3->email= $request->email;
+            $data3->company = $request->company;
+            $data3->address = $request->address;
+            $data3->phone = $request->phone;
+            $data3->save();
+        }
 
         $products = DB::table('products')->where('category',$request->item)->first();
         $mainqty = $products->stock;
@@ -36,7 +57,6 @@ class InvoiceController extends Controller
 
         DB::table('products')->where('name',$request->name)->update(['stock' => $nowqty]);
         Order::where('email',$request->email)->update(['order_status'=>'1']);
-        // print_r($mainqty);
 
         return view('Admin.invoice_details',compact('data'));
 

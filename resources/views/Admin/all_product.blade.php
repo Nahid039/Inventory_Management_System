@@ -15,9 +15,7 @@
                         <th>Category</th>
                         <th>Stock</th>
                         <th>Unit Price</th>
-                        <!-- <th>Total_Price</th> -->
                         <th>Sale Price</th>
-                        <!-- <th>Sales Stock Price</th> -->
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -38,7 +36,7 @@
                         <td>{{ $row->sales_unit_price }}</td>
                         <td>
                         	<a href="#" class="btn btn-sm btn-info">Edit</a>
-                        	<!-- <a href="{{ 'add-order/'.$row->id }}" class="btn btn-sm btn-info">Order</a> -->
+                        	<a href="{{ 'purchase-products/'.$row->id }}" class="btn btn-sm btn-info">Purchase</a>
                         </td>
                     </tr>
                     @endforeach

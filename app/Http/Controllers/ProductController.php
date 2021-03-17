@@ -45,4 +45,18 @@ class ProductController extends Controller
         return view('Admin.add_order',compact('product'));
         // return view('Admin.add_order',['product'=>$product]);
     }
+
+    public function purchaseData($id){
+        $product = Product::find($id);
+        
+        return view('Admin.purchase_products',compact('product'));
+    }
+
+    public function storePurchase(Request $request){
+
+        Product::where('name',$request->name)->update(['stock' => $request->stock + $request->purchase]);
+        
+        return Redirect()->route('all.product');
+    }
+
 }

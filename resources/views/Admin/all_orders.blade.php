@@ -36,7 +36,12 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ 'add-invoice/'.$row->id }}" class="btn btn-sm btn-info">Invoice</a>
+                            @if($row->order_status=='0')
+                                <a href="{{ 'add-invoice/'.$row->id }}" class="btn btn-sm btn-info">createInvoice</a>
+                            @else
+                                <a href="#" class="btn btn-sm btn-info">Invoiced</a>
+                            @endif
+                            
                         </td>
                     </tr>
                     @endforeach
