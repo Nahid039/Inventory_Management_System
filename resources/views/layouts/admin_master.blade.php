@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Products<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>InventoryManagementSystem</title>        
+
         <link href="{{ asset('backend') }}/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -53,63 +54,74 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
 
-                            <a class="nav-link collapsed" href="{{ route('add.product')}}">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Products
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="#">
+                            <div class="collapse" id="collapseProducts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('add.product') }}">New Product</a>
+                                    <a class="nav-link" href="{{ route('all.product') }}">Stock Report</a>
+                                    <a class="nav-link" href="{{ route('available.products') }}">Available Products</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="false" aria-controls="collapseInvoice">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Sales
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseInvoice" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('new.invoice') }}">New Invoice</a>
+                                    <a class="nav-link" href="{{ route('all.invoices') }}">Invoices List</a>
+                                </nav>
+                            </div>
+                            
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders" aria-expanded="false" aria-controls="collapseOrders">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Orders
-                            </a>
-                            <a class="nav-link collapsed" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Stocks
-                            </a>
-
-
-
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <div class="collapse" id="collapseOrders" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" href="{{ route('all.orders')}}">Orders List</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
+                            <div class="collapse" id="collapseOrders" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('pending.orders')}}">Pending Orders</a>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapseOrders" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('delivered.orders')}}">Delivered Orders</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAuthentication" aria-expanded="false" aria-controls="collapseAuthentication">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Customers
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
+                            <div class="collapse" id="collapseAuthentication" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('register')}}">Register</a>
                                 </nav>
                             </div>
+                            <div class="collapse" id="collapseAuthentication" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('add.customer') }}">New Customer</a>
+                                </nav>
+                            </div>
+                            <div class="collapse" id="collapseAuthentication" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('all.customers') }}">Customers List</a>
+                                </nav>
+                            </div>
+
+                            
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -121,10 +133,6 @@
                             </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -134,7 +142,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
