@@ -38,7 +38,6 @@ Route::get('/purchase-products/{id}', [ProductController::class,'purchaseData'])
 Route::post('/insert-purchase-products',[ProductController::class,'storePurchase'])->middleware(['auth']);
 
 
-
 //invoice
 Route::get('/add-invoice/{id}', [InvoiceController::class,'formData'])->middleware(['auth']);
 
@@ -54,10 +53,6 @@ Route::get('/all-invoice', [InvoiceController::class,'allInvoices'])->middleware
 
 Route::get('/sold-products',[InvoiceController::class,'soldProducts'])->middleware(['auth'])->name('sold.products');
 // Route::get('/delete', [InvoiceController::class,'delete']);
-
-
-
-
 
 
 //order
@@ -76,7 +71,6 @@ Route::get('/new-order', [OrderController::class,'newformData'])->middleware(['a
 Route::post('/insert-new-order',[OrderController::class,'newStore'])->middleware(['auth']);
 
 
-
 //customer
 Route::get('/add-customer', function () {
     return view('Admin.add_customer');
@@ -85,8 +79,6 @@ Route::get('/add-customer', function () {
 Route::post('/insert-customer',[CustomerController::class,'store'])->middleware(['auth']);
 
 Route::get('/all-customers',[CustomerController::class,'customersData'])->middleware(['auth'])->name('all.customers');
-
-
 
 
 Route::get('/dashboard', function () {
