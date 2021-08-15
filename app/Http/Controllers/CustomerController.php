@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function index()
+    {
+        $customers = Customer::all();
+    	return view('Admin.all_customers',compact('customers'));
+    }
+
+    public function create()
+    {
+        return view('Admin.add_customer');
+    }
+
     public function store(Request $request){
     	
     	$data=new Customer;
@@ -16,11 +27,6 @@ class CustomerController extends Controller
     	$data->address = $request->address;
     	$data->phone = $request->phone;
         $data->save();
-        return Redirect()->route('add.customer');
-    }
-
-    public function customersData(){
-    	$customers = Customer::all();
-    	return view('Admin.all_customers',compact('customers'));
+        return Redirect()->route('customer.create');
     }
 }

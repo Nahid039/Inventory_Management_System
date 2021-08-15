@@ -9,6 +9,18 @@ use App\Models\Customer;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::all();
+        return view('Admin.all_orders',compact('orders'));
+    }
+
+    public function create()
+    {
+        $products = Product::all();
+        return view('Admin.new_order',compact('products'));
+    }
+
     public function store(Request $request){
     	
     	$data=new Order;
@@ -18,7 +30,7 @@ class OrderController extends Controller
         $data->quantity = $request->quantity;
     	$data->order_status = 0;
         $data->save();
-        return Redirect()->route('all.orders');
+        return Redirect()->route('order.index');
     	
     }
      public function newStore(Request $request){
@@ -42,18 +54,8 @@ class OrderController extends Controller
             $data3->phone = $request->phone;
             $data3->save();
         }
-        return Redirect()->route('all.orders');
+        return Redirect()->route('order.index');
         
-    }
-
-    public function newformData(){
-        $products = Product::all();
-        return view('Admin.new_order',compact('products'));
-    }
-
-    public function ordersData(){
-        $orders = Order::all();
-        return view('Admin.all_orders',compact('orders'));
     }
 
     public function pendingOrders(){

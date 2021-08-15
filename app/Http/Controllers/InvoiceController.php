@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
+    public function index()
+    {
+        $invoices = Invoice::all();
+        return view('Admin.all_invoices',compact('invoices'));
+    }
+
+    public function create()
+    {
+        $products = Product::all();
+        $customers = Customer::all();
+        return view('Admin.new_invoice',compact('products','customers'));
+    }
+
     public function store(Request $request){
     	
     	$data=new Invoice;
@@ -71,18 +84,6 @@ class InvoiceController extends Controller
         return view('Admin.add_invoice',compact('order','product','customer'));
     }
 
-    public function newformData(){
-        $products = Product::all();
-        $customers = Customer::all();
-        return view('Admin.new_invoice',compact('products','customers'));
-    }
-
-
-    public function allInvoices(){
-        $invoices = Invoice::all();
-        return view('Admin.all_invoices',compact('invoices'));
-    }
-
     public function soldProducts(){
         $products = Invoice::select('product_name', Invoice::raw("SUM(quantity) as count"))
         ->groupBy(Invoice::raw("product_name"))->get();
@@ -90,7 +91,8 @@ class InvoiceController extends Controller
         return view('Admin.sold_products',compact('products'));
     }
 
-    public function delete(){
-        Invoice::truncate();
+    public function invoiceDetails()
+    {
+        return view('Admin.invoice_details');
     }
 }

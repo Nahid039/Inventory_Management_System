@@ -8,9 +8,16 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    // public function __construct(){
-    // 	$this->middleware('auth');
-    // }
+    public function index()
+    {
+        $products = Product::all();
+    	return view('Admin.all_product',compact('products'));
+    }
+
+    public function create()
+    {
+        return view('Admin.add_product');
+    }
 
     public function store(Request $request){
     	
@@ -26,12 +33,7 @@ class ProductController extends Controller
 
 
         $data->save();
-        return Redirect()->route('add.product');
-    }
-
-    public function allProduct(){
-    	$products = Product::all();
-    	return view('Admin.all_product',compact('products'));
+        return Redirect()->route('product.create');
     }
 
     public function availableProducts(){
@@ -43,7 +45,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         
         return view('Admin.add_order',compact('product'));
-        // return view('Admin.add_order',['product'=>$product]);
     }
 
     public function purchaseData($id){
@@ -54,9 +55,10 @@ class ProductController extends Controller
 
     public function storePurchase(Request $request){
 
-        Product::where('name',$request->name)->update(['stock' => $request->stock + $request->purchase]);
+        Product::where('name',$request->name)
+                ->update(['stock' => $request->stock + $request->purchase]);
         
-        return Redirect()->route('all.product');
+        return Redirect()->route('product.index');
     }
 
 }

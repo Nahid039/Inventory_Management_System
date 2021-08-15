@@ -6,83 +6,69 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
-//product
-Route::get('/add-product', function () {
-    return view('Admin.add_product');
-})->middleware(['auth'])->name('add.product');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::post('/insert-product',[ProductController::class,'store'])->middleware(['auth']);
+    //product
+    Route::group(['prefix' => 'product'], function (Router $router) {
 
-Route::get('/all-product',[ProductController::class,'allProduct'])->middleware(['auth'])->name('all.product');
+        $router->get('', [ProductController::class, 'index'])->name('product.index');
+        $router->get('/create', [ProductController::class, 'create'])->name('product.create');
+        $router->post('/store', [ProductController::class, 'store'])->name('product.store');
+        $router->get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+        $router->patch('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+        $router->delete('/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+        $router->get('/available', [ProductController::class,'availableProducts'])->name('available.product');
+        $router->get('/purchase/{id}', [ProductController::class,'purchaseData']);
+        $router->post('/insert-purchase', [ProductController::class,'storePurchase']);
+    });
 
-Route::get('/available-products',[ProductController::class,'availableProducts'])->middleware(['auth'])->name('available.products');
+    //invoice
+    Route::group(['prefix' => 'invoice'], function (Router $router) {
 
-Route::get('/purchase-products/{id}', [ProductController::class,'purchaseData'])->middleware(['auth']);
+        $router->get('', [InvoiceController::class, 'index'])->name('invoice.index');
+        $router->get('/create', [InvoiceController::class, 'create'])->name('invoice.create');
+        $router->post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
+        $router->get('/add-invoice/{id}', [InvoiceController::class,'formData']);
+        $router->get('/sold-products', [InvoiceController::class,'soldProducts'])->name('sold.products');
+        $router->get('/invoice-details', [InvoiceController::class,'invoiceDetails'])->name('invoice.details');
 
-Route::post('/insert-purchase-products',[ProductController::class,'storePurchase'])->middleware(['auth']);
+    });
 
+    //order
+    Route::group(['prefix' => 'order'], function (Router $router) {
 
-//invoice
-Route::get('/add-invoice/{id}', [InvoiceController::class,'formData'])->middleware(['auth']);
+        $router->get('', [OrderController::class, 'index'])->name('order.index');
+        $router->get('/create', [OrderController::class, 'create'])->name('order.create');
+        $router->post('/store', [OrderController::class, 'store'])->name('order.store');
+        $router->get('/add/{name}', [ProductController::class,'formData'])->name('add.order');
+        $router->get('/pending', [OrderController::class,'pendingOrders'])->name('pending.orders');
+        $router->get('/delivered', [OrderController::class,'deliveredOrders'])->name('delivered.orders');
+        $router->post('/insert-new-order', [OrderController::class,'newStore'])->name('neworder.insert');
+    });
 
-Route::get('/new-invoice', [InvoiceController::class,'newformData'])->middleware(['auth'])->name('new.invoice');
+    //customer
+    Route::group(['prefix' => 'customer'], function (Router $router) {
 
-Route::post('/insert-invoice',[InvoiceController::class,'store'])->middleware(['auth']);
+        $router->get('', [CustomerController::class, 'index'])->name('customer.index');
+        $router->get('/create', [CustomerController::class, 'create'])->name('customer.create');
+        $router->post('/store', [CustomerController::class, 'store'])->name('customer.store');
+        
+    });
 
-Route::get('/invoice-details', function () {
-    return view('Admin.invoice_details');
-})->middleware(['auth'])->name('invoice.details');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/all-invoice', [InvoiceController::class,'allInvoices'])->middleware(['auth'])->name('all.invoices');
-
-Route::get('/sold-products',[InvoiceController::class,'soldProducts'])->middleware(['auth'])->name('sold.products');
-// Route::get('/delete', [InvoiceController::class,'delete']);
-
-
-//order
-Route::get('/add-order/{name}', [ProductController::class,'formData'])->middleware(['auth'])->name('add.order');
-
-Route::post('/insert-order',[OrderController::class,'store'])->middleware(['auth']);
-
-Route::get('/all-orders',[OrderController::class,'ordersData'])->middleware(['auth'])->name('all.orders');
-
-Route::get('/pending-orders',[OrderController::class,'pendingOrders'])->middleware(['auth'])->name('pending.orders');
-
-Route::get('/delivered-orders',[OrderController::class,'deliveredOrders'])->middleware(['auth'])->name('delivered.orders');
-
-Route::get('/new-order', [OrderController::class,'newformData'])->middleware(['auth'])->name('new.order');
-
-Route::post('/insert-new-order',[OrderController::class,'newStore'])->middleware(['auth']);
-
-
-//customer
-Route::get('/add-customer', function () {
-    return view('Admin.add_customer');
-})->middleware(['auth'])->name('add.customer');
-
-Route::post('/insert-customer',[CustomerController::class,'store'])->middleware(['auth']);
-
-Route::get('/all-customers',[CustomerController::class,'customersData'])->middleware(['auth'])->name('all.customers');
+});
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
