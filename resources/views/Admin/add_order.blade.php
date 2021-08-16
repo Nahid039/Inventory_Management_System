@@ -15,7 +15,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputFirstName">Product Code</label>
-                                        <input class="form-control py-4" name="code" type="text" value="{{ $product->product_code }}" />
+                                        <input class="form-control py-4" name="code" type="text" value="{{ $product->code }}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">

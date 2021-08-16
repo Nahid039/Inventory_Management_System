@@ -12,16 +12,23 @@
                         <form method="POST" action="{{ route('neworder.insert') }}" enctype="multipart/form-data">
                         @csrf
                             <div class="form-row">
+                                
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputFirstName">Customer Name</label>
-                                        <input class="form-control py-4" name="name" type="text"/>
+                                        <label class="small mb-1" for="inputEmail">Customer Email</label>
+
+                                        <select class="form-control py-4">
+                                           <option selected disabled value="">--Select--</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->email }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputFirstName">Customer Email</label>
-                                        <input class="form-control py-4" name="email" type="text"/>
+                                        <label class="small mb-1" for="inputName">Customer Name</label>
+                                        <input class="form-control py-4" name="name" type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -34,6 +41,8 @@
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputState">Address</label>
                                         <input class="form-control py-4" name="address" type="text" />
+
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -45,11 +54,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                       <label class="small mb-1" for="inputState">Product Code</label>
-                                      <select id="inputState" name="code" class="form-control">
-                                        <option selected>Choose...</option>
-                                        @foreach($products as $row)
-                                            @if( $row->stock > 1)
-                                                <option>{{ $row->product_code }}</option>
+                                      <select id="inputState" name="code" class="form-control py-4">
+                                        <option selected disabled>--Select--</option>
+                                        @foreach($products as $product)
+                                            @if( $product->stock > 1)
+                                                <option>{{ $product->code }}</option>
                                             @endif
                                         @endforeach
                                       </select>
@@ -58,7 +67,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                       <label class="small mb-1" for="inputState">Product Name</label>
-                                      <select id="inputState" name="name" class="form-control">
+                                      <select id="inputState" name="name" class="form-control py-4">
                                         <option selected>Choose...</option>
                                         @foreach($products as $row)
                                             @if( $row->stock > 1)

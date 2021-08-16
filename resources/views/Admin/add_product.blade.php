@@ -14,20 +14,36 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputFirstName">Product Code</label>
-                                        <input class="form-control py-4" name="code" type="text" placeholder="" />
+                                        <label class="small mb-1" for="inputFirstName">Product Name</label>
+                                        <input class="form-control py-4" name="name" type="text" placeholder="" />
+
+                                        @error('name')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="small mb-1" for="inputFirstName">Product Name</label>
-                                        <input class="form-control py-4" name="name" type="text" placeholder="" />
+                                        <label class="small mb-1" for="inputFirstName">Product Code</label>
+                                        <input class="form-control py-4" name="code" type="text" placeholder="" />
+                                        @error('code')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputLastName">Category</label>
-                                        <input class="form-control py-4" name="category" type="text" placeholder="" />
+                                        <input class="form-control py-4" name="category" type="text" placeholder=""/>
+                                        @error('category')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 
@@ -35,6 +51,11 @@
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputLastName">Stock</label>
                                         <input class="form-control py-4" name="stock" type="text" placeholder="" />
+                                        @error('stock')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 
@@ -42,12 +63,22 @@
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputLastName">Buy Price (perUnit)</label>
                                         <input class="form-control py-4" name="unit_price" type="text" placeholder="" />
+                                        @error('unit_price')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputLastName">Sale Price(perUnit)</label>
                                         <input class="form-control py-4" name="sale_price" type="text" placeholder="" />
+                                        @error('sale_price')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
                                     </div>
                                 </div>
 

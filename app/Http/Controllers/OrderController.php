@@ -18,7 +18,8 @@ class OrderController extends Controller
     public function create()
     {
         $products = Product::all();
-        return view('Admin.new_order',compact('products'));
+        $customers = Customer::all();
+        return view('Admin.new_order',compact('products', 'customers'));
     }
 
     public function store(Request $request){

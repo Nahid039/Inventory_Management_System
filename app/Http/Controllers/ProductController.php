@@ -19,10 +19,20 @@ class ProductController extends Controller
         return view('Admin.add_product');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+
+        $validate = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'category' => 'required',
+            'stock' => 'required',
+            'unit_price' => 'required',
+            'sale_price' => 'required'
+        ]);
     	
     	$data=new Product;
-        $data->product_code=$request->code;
+        $data->code=$request->code;
     	$data->name= $request->name;
         $data->category = $request->category;
     	$data->stock = $request->stock;
