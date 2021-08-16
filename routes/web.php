@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InvoiceController;
@@ -61,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
         $router->post('/store', [CustomerController::class, 'store'])->name('customer.store');
         
     });
+
+    Route::get('/ajax/email/name/{id}', [AjaxController::class, 'customerName'])->name('customer.name');
 
     Route::get('/dashboard', function () {
         return view('dashboard');

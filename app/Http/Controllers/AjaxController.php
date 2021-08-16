@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
-    // 
+    public function customerName(Request $request)
+    {
+        
+    } 
 }
