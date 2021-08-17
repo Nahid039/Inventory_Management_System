@@ -5,12 +5,17 @@ use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::query()
+                    ->orderBy('id')
+                    ->get();
+
     	return view('Admin.all_product',compact('products'));
     }
 
@@ -46,11 +51,53 @@ class ProductController extends Controller
         return Redirect()->route('product.create');
     }
 
-    public function availableProducts(){
+    public function edit($id)
+    {
+        $product = Product::query()
+                            ->where('id', $id)
+                            ->first();
+
+        return view('Admin.product.edit', compact('product'));
+    }
+
+    public function update(Request $request)
+    {
+        $validate = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'category' => 'required',
+            'stock' => 'required',
+            'unit_price' => 'required',
+            'sale_price' => 'required'
+        ]);
+        // dd($request->all());
+
+        DB::table('products')
+              ->where('code', $request->code)
+              ->update([
+                'code' => $request->code,
+                'name' => $request->name,
+                'category' => $request->category,
+                'stock' => $request->stock,
+                'unit_price' => $request->unit_price,
+                'sales_unit_price' => $request->sale_price
+            ]);
+
+            return Redirect()->route('product.index');
+    }
+
+    public function delete($id)
+    {
+        DB::table('products')->where('id', $id)->delete();
+
+        return Redirect()->route('product.index');
+    }
+
+    public function availableProducts()
+    {
         $products = Product::where('stock','>','0')->get();
         return view('Admin.available_products',compact('products'));
     }
-
     public function formData($id){
         $product = Product::find($id);
         

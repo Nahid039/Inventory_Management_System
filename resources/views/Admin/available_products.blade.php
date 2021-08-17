@@ -10,6 +10,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Code</th>
                         <th>Name</th>
                         <th>Category</th>
@@ -19,11 +20,12 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                
+                {{ $i =0 }}
                 <tbody>
                 	@foreach($products as $row)
                     <tr>
-                        <td>{{ $row->product_code }}</td>
+                        <td>{{ ++$i}}</td>
+                        <td>{{ $row->code }}</td>
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->category }}</td>
                         

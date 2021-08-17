@@ -10,6 +10,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Code</th>
                         <th>Name</th>
                         <th>Category</th>
@@ -19,10 +20,12 @@
                         <th>Action</th>
                     </tr>
                 </thead>
+                {{ $i = 0 }}
                 <tbody>
                 	@foreach($products as $row)
                     <tr>
-                        <td>{{ $row->product_code }}</td>
+                        <td>{{ ++$i }}</td>
+                        <td>{{ $row->code }}</td>
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->category }}</td>
                         
@@ -35,8 +38,9 @@
                         <td>{{ $row->unit_price }}</td>
                         <td>{{ $row->sales_unit_price }}</td>
                         <td>
-                        	<a href="#" class="btn btn-sm btn-info">Edit</a>
-                        	<a href="{{ 'purchase-products/'.$row->id }}" class="btn btn-sm btn-info">Purchase</a>
+                        	<a href="#" class="btn btn-sm btn-info">Purchase</a>
+                            <a href="{{ 'product/edit/'.$row->id }}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{{ 'product/delete/'.$row->id }}" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                     @endforeach

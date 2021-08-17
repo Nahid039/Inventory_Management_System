@@ -23,8 +23,8 @@ Route::group(['middleware' => 'auth'], function () {
         $router->get('/create', [ProductController::class, 'create'])->name('product.create');
         $router->post('/store', [ProductController::class, 'store'])->name('product.store');
         $router->get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-        $router->patch('/update/{id}', [ProductController::class, 'update'])->name('product.update');
-        $router->delete('/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+        $router->post('/update', [ProductController::class, 'update'])->name('product.update');
+        $router->get('/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
         $router->get('/available', [ProductController::class,'availableProducts'])->name('available.product');
         $router->get('/purchase/{id}', [ProductController::class,'purchaseData']);
         $router->post('/insert-purchase', [ProductController::class,'storePurchase']);
