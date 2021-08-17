@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Str;
-
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
@@ -51,16 +50,12 @@ class ProductController extends Controller
         return Redirect()->route('product.create');
     }
 
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::query()
-                            ->where('id', $id)
-                            ->first();
-
         return view('Admin.product.edit', compact('product'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Product $product)
     {
         $validate = $request->validate([
             'name' => 'required',
@@ -70,7 +65,6 @@ class ProductController extends Controller
             'unit_price' => 'required',
             'sale_price' => 'required'
         ]);
-        // dd($request->all());
 
         DB::table('products')
               ->where('code', $request->code)
@@ -83,12 +77,14 @@ class ProductController extends Controller
                 'sales_unit_price' => $request->sale_price
             ]);
 
-            return Redirect()->route('product.index');
+        return Redirect()->route('product.index');
     }
 
-    public function delete($id)
+    public function delete(Product $product)
     {
-        DB::table('products')->where('id', $id)->delete();
+        // DB::table('products')->where('id', $id)->delete();
+
+        $product->delete();
 
         return Redirect()->route('product.index');
     }

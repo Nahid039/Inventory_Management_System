@@ -38,9 +38,15 @@
                         <td>{{ $row->unit_price }}</td>
                         <td>{{ $row->sales_unit_price }}</td>
                         <td>
-                        	<a href="#" class="btn btn-sm btn-info">Purchase</a>
-                            <a href="{{ 'product/edit/'.$row->id }}" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="{{ 'product/delete/'.$row->id }}" class="btn btn-sm btn-danger">Delete</a>
+                        	
+                            {{-- <a href="{{ 'product/delete/'.$row->id }}" class="btn btn-sm btn-danger">Delete</a> --}}
+
+                            <form  action="{{ route('product.delete', $row->id) }}" method="post">
+                                {{ csrf_field() }} @method('delete')
+                                <a href="#" class="btn btn-sm btn-info">Purchase</a>
+                                <a href="{{ 'product/edit/'.$row->id }}" class="btn btn-sm btn-warning">Edit</a>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

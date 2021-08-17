@@ -9,8 +9,9 @@
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Edit Product</h3></div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('product.update') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('product.update', $product) }}" enctype="multipart/form-data">
                         @csrf
+                        @method('patch')
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-group">
