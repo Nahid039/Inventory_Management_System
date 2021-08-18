@@ -47,7 +47,7 @@ class ProductController extends Controller
 
 
         $data->save();
-        return Redirect()->route('product.create');
+        return Redirect()->route('product.index');
     }
 
     public function edit(Product $product)
