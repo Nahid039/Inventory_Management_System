@@ -101,7 +101,7 @@ Products<!DOCTYPE html>
                             <div class="collapse" id="collapseInvoice" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{ route('invoice.create') }}">New Invoice</a>
-                                    <a class="nav-link" href="{{ route('invoice.index') }}">Invoices List</a>
+                                    <a class="nav-link" href="{{ route('invoice.list') }}">Invoices List</a>
                                 </nav>
                             </div>
 

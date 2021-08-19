@@ -20,7 +20,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                {{ $i =0 }}
+                @php( $i=0 )
                 <tbody>
                 	@foreach($products as $row)
                     <tr>

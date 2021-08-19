@@ -15,29 +15,31 @@
                         <th>Product Name</th>
                         <th>Customer Email</th>
                         <th>Quantity</th>
+                        <th>Total Price</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    @php( $i=0 )
                     @foreach($orders as $row)
                     <tr>
-                        <td>{{ $row->order_id }}</td>
+                        <td>{{ ++$i }}</td>
                         <td>{{ $row->product_code }}</td>
                         <td>{{ $row->product_name }}</td>
                         <td>{{ $row->customer_email }}</td>
                         <td>{{ $row->quantity }}</td>
+                        <td>{{ $row->total_price }}</td>
                         <td>
                             @if($row->order_status=='0')
-                                <a href="#" class="btn btn-sm btn-info">Pending</a>
+                                <a href="#" class="btn btn-sm btn-danger">Pending</a>
                             @else
                                 <a href="#" class="btn btn-sm btn-info">Delivered</a>
                             @endif
                         </td>
                         <td>
                             @if($row->order_status=='0')
-                                <a href="{{ 'add-invoice/'.$row->order_id }}" class="btn btn-sm btn-info">createInvoice</a>
+                                <a href="{{ 'add-invoice/'.$row->order_id }}" class="btn btn-sm btn-danger">createInvoice</a>
                             @else
                                 <a href="#" class="btn btn-sm btn-info">Invoiced</a>
                             @endif

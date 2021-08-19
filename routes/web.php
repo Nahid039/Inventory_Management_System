@@ -33,8 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     //invoice
     Route::group(['prefix' => 'invoice'], function (Router $router) {
 
-        $router->get('', [InvoiceController::class, 'index'])->name('invoice.index');
-        $router->get('/create', [InvoiceController::class, 'create'])->name('invoice.create');
+        
         $router->post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
         $router->get('/add-invoice/{id}', [InvoiceController::class,'formData']);
         $router->get('/sold-products', [InvoiceController::class,'soldProducts'])->name('sold.products');
@@ -52,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
         $router->get('/pending', [OrderController::class,'pendingOrders'])->name('pending.orders');
         $router->get('/delivered', [OrderController::class,'deliveredOrders'])->name('delivered.orders');
         $router->post('/insert-new-order', [OrderController::class,'newStore'])->name('neworder.insert');
+        $router->get('/invoices', [OrderController::class, 'invoicesList'])->name('invoice.list');
+        $router->get('/create_invoice', [OrderController::class, 'createInvoice'])->name('invoice.create');
     });
 
     //customer
@@ -63,7 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
         
     });
 
-    Route::get('/ajax/email/name/{id}', [AjaxController::class, 'customerName'])->name('customer.name');
+    Route::get('/ajax/product/price/{id}', [AjaxController::class, 'getPriceByProduct'])->name('product.price');
 
     Route::get('/dashboard', function () {
         return view('dashboard');

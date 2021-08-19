@@ -20,7 +20,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                {{ $i = 0 }}
+                @php( $i=0 )
                 <tbody>
                 	@foreach($products as $row)
                     <tr>
@@ -43,7 +43,6 @@
 
                             <form  action="{{ route('product.delete', $row->id) }}" method="post">
                                 {{ csrf_field() }} @method('delete')
-                                <a href="#" class="btn btn-sm btn-info">Purchase</a>
                                 <a href="{{ 'product/edit/'.$row->id }}" class="btn btn-sm btn-warning">Edit</a>
                                 <button class="btn btn-sm btn-danger">Delete</button>
                             </form>

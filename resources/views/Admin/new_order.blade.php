@@ -12,65 +12,6 @@
                         <form method="POST" action="{{ route('neworder.insert') }}" enctype="multipart/form-data">
                         @csrf
                             <div class="form-row">
-                                
-                                
-                                {{-- <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputName">Customer Name</label>
-                                        <input class="form-control" name="name" type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputLastName">Company</label>
-                                        <input class="form-control" name="company" type="text" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputState">Address</label>
-                                        <input class="form-control" name="address" type="text" />
-
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="small mb-1" for="inputState">Phone No.</label>
-                                        <input class="form-control" name="phone" type="text" />
-                                    </div>
-                                </div> --}}
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label class="small mb-1" for="inputState">Product Code</label>
-                                      <select id="inputState" name="code" class="form-control">
-                                        <option selected disabled>--Select--</option>
-                                        @foreach($products as $product)
-                                            @if( $product->stock > 1)
-                                                <option value="{{ $product->id }}">{{ $product->code }}</option>
-                                            @endif
-                                        @endforeach
-                                      </select>
-                                      @error('code')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                {{-- <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label class="small mb-1" for="inputState">Product Name</label>
-                                      <select id="inputState" name="name" class="form-control">
-                                        <option selected>Choose...</option>
-                                        @foreach($products as $row)
-                                            @if( $row->stock > 1)
-                                                <option>{{ $row->name }}</option>
-                                            @endif
-                                        @endforeach
-                                      </select>
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputEmail">Customer Email</label>
@@ -89,9 +30,49 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                      <label class="small mb-1" for="inputState">Product Code</label>
+                                      <select id="inputState" name="code" class="form-control ajax-select"  data-url="{{ url('/ajax/product/price/') }}" data-target="#unit_price">
+                                        <option selected disabled>--Select--</option>
+                                        @foreach($products as $product)
+                                            @if( $product->stock > 1)
+                                                <option value="{{ $product->id }}">{{ $product->code }}</option>
+                                            @endif
+                                        @endforeach
+                                      </select>
+                                      @error('code')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputLastName">Unit Price</label>
+                                        <input id="unit_price" class="form-control" name="unit_price" type="number" value="" readonly/>
+                                        @error('unit_price')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="small mb-1" for="inputLastName">Quantity</label>
-                                        <input class="form-control" name="quantity" type="text"/>
+                                        <input id="quantity" class="form-control input" name="quantity" type="number"/>
                                         @error('quantity')
+                                        <div class="invalid-feedback d-block">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputLastName">Total Price</label>
+                                        <input id="total_price" class="form-control" name="total_price" type="number" readonly/>
+                                        @error('total_price')
                                         <div class="invalid-feedback d-block">
                                             {{ $message }}
                                         </div>

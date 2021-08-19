@@ -16,79 +16,59 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoices = Invoice::all();
-        return view('Admin.all_invoices',compact('invoices'));
+        return view('Admin.all_invoices', compact('invoices'));
     }
 
     public function create()
     {
         $products = Product::all();
         $customers = Customer::all();
-        return view('Admin.new_invoice',compact('products','customers'));
+        return view('Admin.new_invoice', compact('products','customers'));
     }
 
-    public function store(Request $request){
-    	
-    	$data=new Invoice;
-        $data->customer_name= $request->customer;
-    	$data->customer_mail= $request->email;
+    public function store(Request $request)
+    {
+        $data = new Customer;
+        $data->name = $request->customer;
+        $data->email = $request->email;
         $data->company = $request->company;
         $data->address = $request->address;
-        $data->item = $request->item;
-    	$data->product_name = $request->name;
-    	$data->price = $request->unit_price;
-    	$data->quantity = $request->quantity;
-        $data->total = $request->total;
-        $data->payment = $request->payment;
-        $data->due = $request->total - $request->payment;
+        $data->phone = $request->phone;
         $data->save();
 
-        //order_track
-        $productCode = Product::where('name',$request->name)->first();
-        $data2=new Order;
-        $data2->email= $request->email;
-        $data2->product_code = $productCode->product_code;
-        $data2->product_name = $request->name;
-        $data2->quantity = $request->quantity;
-        $data2->order_status = 1;
-        $data2->save();
-
-        //customer_track
-        $customer = Customer::where('email', '=', $request->email)->first();
-        if($customer === null){
-            $data3=new Customer;
-            $data3->name= $request->customer;
-            $data3->email= $request->email;
-            $data3->company = $request->company;
-            $data3->address = $request->address;
-            $data3->phone = $request->phone;
-            $data3->save();
-        }
-
-        $products = DB::table('products')->where('category',$request->item)->first();
+        $customer = DB::table('customers')
+                        ->where('email', $request->email)
+                        ->first();
+        $customer_id = $customer->id;
+        
+        $data = new Order;
+        $data->product_id = $request->code;
+        $data->customer_id = $customer_id;
+        $data->quantity = $request->quantity;
+        $data->order_status = 1;
+        $data->total_price = $request->total;
+        $data->save();
+        
+        $products = DB::table('products')->where('id',$request->code)->first();
         $mainqty = $products->stock;
         $nowqty = $mainqty - $request->quantity;
+        DB::table('products')->where('id',$request->code)->update(['stock' => $nowqty]);
 
-        DB::table('products')->where('name',$request->name)->update(['stock' => $nowqty]);
-        Order::where('email',$request->email)->update(['order_status'=>'1']);
-
-        return view('Admin.invoice_details',compact('data'));
-
-
-        // return Redirect()->route('add.invoice');
+        return view('Admin.invoice_details', compact('data'));
     }
 
-    public function formData($id){
+    public function formData($id)
+    {
         $order = Order::where('id',$id)->first();
         $product = Product::where('product_code',$order->product_code)->first();
         $customer = Customer::where('email',$order->email)->first();
-        return view('Admin.add_invoice',compact('order','product','customer'));
+        return view('Admin.add_invoice', compact('order','product','customer'));
     }
 
     public function soldProducts(){
         $products = Invoice::select('product_name', Invoice::raw("SUM(quantity) as count"))
         ->groupBy(Invoice::raw("product_name"))->get();
-       // ?print_r($products);
-        return view('Admin.sold_products',compact('products'));
+        return view('Admin.sold_products', compact('products'));
     }
 
     public function invoiceDetails()

@@ -10,30 +10,23 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Invoice No.</th>
+                        <th>#</th>
                         <th>Customer Name</th>
-                        <th>Customer Email</th>
                         <th>Company</th>
-                        <th>Address</th>
-                        <!-- <th>Total_Price</th> -->
                         <th>Product Name</th>
-                        <!-- <th>Sales Stock Price</th> -->
                         <th>Quantity</th>
-                        <th>Total Cost</th>
                         <th>Date</th>
                     </tr>
                 </thead>
+                @php( $i=0 )
                 <tbody>
                 	@foreach($invoices as $row)
                     <tr>
-                        <td>{{ $row->id }}</td>
+                        <td>{{ ++$i }}</td>
                         <td>{{ $row->customer_name }}</td>
-                        <td>{{ $row->customer_mail }}</td>
                         <td>{{ $row->company }}</td>
-                        <td>{{ $row->address }}</td>
                         <td>{{ $row->product_name }}</td>
                         <td>{{ $row->quantity }}</td>
-                        <td>{{ $row->total }}</td>
                         <td>{{ $row->created_at }}</td>
                     </tr>
                     @endforeach
